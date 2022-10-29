@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/04/29 15:30:45.000.571,=C:\2021_delphi\Unit1.pas</Transaction>
+    <Transaction>2021/09/29 14:41:11.000.631,=C:\2021_delphi\Unit1.pas</Transaction>
+    <Transaction>2022/10/28 21:50:54.000.570,=C:\2021_delphi\Unit1.pas</Transaction>
+    <Transaction>2022/10/28 21:51:29.000.526,C:\2021_delphi\Unit1.pas=C:\WKPEDIDOS\UnitPrincipal.pas</Transaction>
+    <Transaction>2022/10/28 21:51:29.000.526,C:\2021_delphi\Unit1.dfm=C:\WKPEDIDOS\UnitPrincipal.dfm</Transaction>
+    <Transaction>2022/10/28 21:51:40.000.831,C:\2021_delphi\Project1.dproj=C:\WKPEDIDOS\WkPedidos.dproj</Transaction>
+    <Transaction>2022/10/28 21:59:31.000.007,=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/28 22:00:02.000.003,C:\WKPEDIDOS\Unit1.pas=C:\WKPEDIDOS\UnitDM.pas</Transaction>
+    <Transaction>2022/10/28 22:00:02.000.003,C:\WKPEDIDOS\Unit1.dfm=C:\WKPEDIDOS\UnitDM.dfm</Transaction>
+    <Transaction>2022/10/29 06:22:49.000.523,=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/29 06:25:00.000.119,=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/29 06:25:38.000.454,C:\WKPEDIDOS\Unit1.pas=C:\WKPEDIDOS\UnitClasspedidosprodutos.pas</Transaction>
+    <Transaction>2022/10/29 06:28:32.000.494,=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/29 06:28:55.000.881,C:\WKPEDIDOS\Unit1.pas=C:\WKPEDIDOS\UnitClasspedidos.pas</Transaction>
+    <Transaction>2022/10/29 06:30:41.000.798,=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/29 06:31:00.000.481,C:\WKPEDIDOS\Unit1.pas=C:\WKPEDIDOS\UnitClassclientes.pas</Transaction>
+    <Transaction>2022/10/29 06:32:01.000.926,=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/29 06:32:18.000.897,C:\WKPEDIDOS\Unit1.pas=C:\WKPEDIDOS\UnitClassprodutos.pas</Transaction>
+    <Transaction>2022/10/29 12:09:52.000.484,=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/29 12:13:09.000.986,C:\WKPEDIDOS\UnitPedidos.pas=C:\WKPEDIDOS\Unit1.pas</Transaction>
+    <Transaction>2022/10/29 12:13:09.000.986,C:\WKPEDIDOS\UnitPedidos.dfm=C:\WKPEDIDOS\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

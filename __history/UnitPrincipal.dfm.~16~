@@ -1,0 +1,248 @@
+object FormPrincipal: TFormPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Sistema de Pedidos WK  V 0.9'
+  ClientHeight = 520
+  ClientWidth = 953
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object SpeedButton1: TSpeedButton
+    Left = 32
+    Top = 64
+    Width = 121
+    Height = 39
+    Visible = False
+  end
+  object pnStatus: TPanel
+    Left = 0
+    Top = 479
+    Width = 953
+    Height = 41
+    Align = alBottom
+    Caption = 'pnStatus'
+    TabOrder = 0
+  end
+  object PnMenu: TPanel
+    Left = 0
+    Top = 0
+    Width = 953
+    Height = 41
+    Align = alTop
+    Caption = 'Lan'#231'amento de Pedidos'
+    Color = clCream
+    ParentBackground = False
+    TabOrder = 1
+  end
+  object pnGeral: TPanel
+    Left = 0
+    Top = 41
+    Width = 953
+    Height = 438
+    Align = alClient
+    TabOrder = 2
+    object pnLancamento: TPanel
+      Left = 1
+      Top = 1
+      Width = 951
+      Height = 183
+      Align = alClient
+      TabOrder = 1
+      object Label1: TLabel
+        Left = 326
+        Top = 0
+        Width = 31
+        Height = 13
+        Caption = 'codigo'
+        FocusControl = DBEdit1
+      end
+      object Label2: TLabel
+        Left = 326
+        Top = 48
+        Width = 26
+        Height = 13
+        Caption = 'nome'
+        FocusControl = DBEdit2
+      end
+      object Label3: TLabel
+        Left = 326
+        Top = 97
+        Width = 31
+        Height = 13
+        Caption = 'cidade'
+        FocusControl = DBEdit3
+      end
+      object Label4: TLabel
+        Left = 327
+        Top = 140
+        Width = 10
+        Height = 13
+        Caption = 'uf'
+        FocusControl = DBEdit4
+      end
+      object DBEdit1: TDBEdit
+        Left = 326
+        Top = 16
+        Width = 134
+        Height = 21
+        DataField = 'codigo'
+        TabOrder = 0
+      end
+      object DBEdit2: TDBEdit
+        Left = 326
+        Top = 64
+        Width = 595
+        Height = 21
+        DataField = 'nome'
+        TabOrder = 1
+      end
+      object DBEdit3: TDBEdit
+        Left = 326
+        Top = 113
+        Width = 594
+        Height = 21
+        DataField = 'cidade'
+        TabOrder = 2
+      end
+      object DBEdit4: TDBEdit
+        Left = 327
+        Top = 156
+        Width = 30
+        Height = 21
+        DataField = 'uf'
+        TabOrder = 3
+      end
+      object DBNavigator1: TDBNavigator
+        Left = 424
+        Top = 152
+        Width = 240
+        Height = 25
+        DataSource = DmPrincipal.DsClientes
+        TabOrder = 4
+      end
+    end
+    object pnGrid: TPanel
+      Left = 1
+      Top = 184
+      Width = 951
+      Height = 253
+      Align = alBottom
+      TabOrder = 0
+      object DBGrid2: TDBGrid
+        Left = 400
+        Top = 96
+        Width = 320
+        Height = 120
+        DataSource = DmPrincipal.DSProdutos
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            Visible = True
+          end>
+      end
+    end
+  end
+  object BtnClientes: TBitBtn
+    Left = 32
+    Top = 109
+    Width = 75
+    Height = 25
+    Caption = 'Clientes'
+    TabOrder = 3
+  end
+  object BtnProdutos: TBitBtn
+    Left = 32
+    Top = 140
+    Width = 75
+    Height = 25
+    Caption = 'Produtos'
+    TabOrder = 4
+  end
+  object BtnPedidos: TBitBtn
+    Left = 32
+    Top = 171
+    Width = 75
+    Height = 25
+    Caption = 'Pedidos'
+    TabOrder = 5
+  end
+  object SQLConnection1: TSQLConnection
+    ConnectionName = 'MySQLConnection'
+    DriverName = 'MySQL'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverName=MySQL'
+      'HostName=localhost'
+      'Database=wkpedidos'
+      'User_Name=root'
+      'Password='
+      'ServerCharSet='
+      'BlobSize=-1'
+      'ErrorResourceFile='
+      'LocaleCode=0000'
+      'Compressed=False'
+      'Encrypted=False'
+      'ConnectTimeout=60')
+    Connected = True
+    Left = 232
+    Top = 176
+  end
+  object SQLQuery1: TSQLQuery
+    Active = True
+    DataSource = DataSource1
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select * from clientes')
+    SQLConnection = SQLConnection1
+    Left = 273
+    Top = 186
+    object SQLQuery1codigo: TIntegerField
+      FieldName = 'codigo'
+      Required = True
+    end
+    object SQLQuery1nome: TStringField
+      FieldName = 'nome'
+      Required = True
+      Size = 50
+    end
+    object SQLQuery1cidade: TStringField
+      FieldName = 'cidade'
+      Required = True
+      Size = 50
+    end
+    object SQLQuery1uf: TStringField
+      FieldName = 'uf'
+      Required = True
+      Size = 2
+    end
+  end
+  object DataSource1: TDataSource
+    Left = 177
+    Top = 265
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 232
+    Top = 352
+  end
+  object DataSetProvider1: TDataSetProvider
+    DataSet = ClientDataSet1
+    Left = 224
+    Top = 408
+  end
+end

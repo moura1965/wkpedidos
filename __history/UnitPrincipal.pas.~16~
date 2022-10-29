@@ -1,0 +1,67 @@
+unit UnitPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,UnitDM, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DBXMySQL, Data.SqlExpr,
+  Data.FMTBcd, Datasnap.Provider, Datasnap.DBClient,UnitClasspedidosprodutos,UnitClasspedidos,UnitClassclientes,
+  Vcl.Buttons;
+
+type
+  TFormPrincipal = class(TForm)
+    pnStatus: TPanel;
+    PnMenu: TPanel;
+    pnGeral: TPanel;
+    pnGrid: TPanel;
+    pnLancamento: TPanel;
+    DBNavigator1: TDBNavigator;
+    DbgPedidos: TDBGrid;
+    SpeedButton1: TSpeedButton;
+    BtnClientes: TBitBtn;
+    BtnProdutos: TBitBtn;
+    BtnPedidos: TBitBtn;
+    DbgItens: TDBGrid;
+    SQLConnection1: TSQLConnection;
+    SQLQuery1: TSQLQuery;
+    DataSource1: TDataSource;
+    SQLQuery1codigo: TIntegerField;
+    SQLQuery1nome: TStringField;
+    SQLQuery1cidade: TStringField;
+    SQLQuery1uf: TStringField;
+    DataSetProvider1: TDataSetProvider;
+    ClientDataSet1: TClientDataSet;
+    ClientDataSet1codigo: TIntegerField;
+    ClientDataSet1nome: TStringField;
+    ClientDataSet1cidade: TStringField;
+    ClientDataSet1uf: TStringField;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
+    DBEdit2: TDBEdit;
+    Label3: TLabel;
+    DBEdit3: TDBEdit;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPrincipal: TFormPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormPrincipal.FormCreate(Sender: TObject);
+begin
+  //SQLConnection1.Connected:=True;
+ // SQLQuery1.Open;
+end;
+
+end.
