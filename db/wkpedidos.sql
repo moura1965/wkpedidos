@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 31-Out-2022 às 00:59
+-- Generation Time: 31-Out-2022 às 14:35
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 5.6.40
 
@@ -158,23 +158,6 @@ CREATE TABLE `pedidos` (
   `valortotal` decimal(15,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Extraindo dados da tabela `pedidos`
---
-
-INSERT INTO `pedidos` (`numeropedido`, `dataemissao`, `codigocliente`, `valortotal`) VALUES
-(1, '2022-10-28 00:00:00', 1, '1.00'),
-(2, '0000-00-00 00:00:00', 1, '85.00'),
-(3, '0000-00-00 00:00:00', 3, '30.00'),
-(6, '2022-10-30 17:33:51', 4, '2310.00'),
-(7, '2022-10-30 17:35:40', 4, '5200.00'),
-(8, '2022-10-30 18:07:54', 1, '25.00'),
-(9, '2022-10-30 18:09:22', 2, '20.00'),
-(10, '2022-10-30 18:11:47', 4, '4.00'),
-(11, '2022-10-30 19:27:16', 24, '0.00'),
-(12, '2022-10-30 19:28:31', 2, '48.00'),
-(13, '2022-10-30 19:45:15', 5, '24.00');
-
 -- --------------------------------------------------------
 
 --
@@ -188,64 +171,6 @@ CREATE TABLE `pedidosprodutos` (
   `qtde` int(11) NOT NULL,
   `valor_unitario` decimal(15,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `pedidosprodutos`
---
-
-INSERT INTO `pedidosprodutos` (`iditem`, `numeropedido`, `codigoproduto`, `qtde`, `valor_unitario`) VALUES
-(11, 1, 1, 57, NULL),
-(12, 1, 1, 67, NULL),
-(13, 1, 1, 87, NULL),
-(14, 1, 1, 58, NULL),
-(15, 1, 1, 45, NULL),
-(16, 1, 1, 5, NULL),
-(17, 1, 1, 5, NULL),
-(18, 1, 1, 7, NULL),
-(19, 1, 1, 8, NULL),
-(20, 1, 4, 55, NULL),
-(21, 1, 6, 44, NULL),
-(22, 1, 4, 55, NULL),
-(23, 1, 4, 55, NULL),
-(24, 1, 4, 55, NULL),
-(25, 1, 7, 7, NULL),
-(26, 1, 6, 8, NULL),
-(27, 1, 3, 7, NULL),
-(28, 1, 12, 9, NULL),
-(29, 2, 6, 5, NULL),
-(30, 2, 4, 5, NULL),
-(31, 2, 7, 5, NULL),
-(32, 3, 3, 5, NULL),
-(33, 3, 3, 5, NULL),
-(36, 5, 5, 5, NULL),
-(37, 5, 7, 5, NULL),
-(38, 5, 8, 5, NULL),
-(40, 6, 2, 300, '45.00'),
-(42, 6, 3, 5, NULL),
-(45, 6, 7, 5, NULL),
-(46, 6, 5, 1, '25.00'),
-(47, 6, 5, 1, '25.00'),
-(48, 6, 5, 1, '25.00'),
-(49, 6, 5, 19, '25.00'),
-(50, 6, 31, 25, '25.00'),
-(51, 6, 31, 25, '25.00'),
-(52, 7, 31, 25, '25.00'),
-(53, 7, 31, 25, '25.00'),
-(54, 7, 22, 25, '25.00'),
-(55, 7, 31, 25, '25.00'),
-(56, 7, 31, 25, NULL),
-(57, 7, 31, 25, '25.00'),
-(58, 7, 31, 25, '25.00'),
-(59, 8, 5, 5, '5.00'),
-(60, 9, 4, 5, NULL),
-(61, 10, 4, 1, NULL),
-(62, 12, 3, 4, NULL),
-(63, 12, 3, 4, NULL),
-(64, 12, 3, 4, NULL),
-(65, 12, 3, 4, '5.00'),
-(66, 13, 4, 2, NULL),
-(67, 13, 4, 2, '5.00'),
-(68, 13, 4, 2, '5.00');
 
 -- --------------------------------------------------------
 
@@ -343,13 +268,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT for table `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `numeropedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `numeropedido` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pedidosprodutos`
 --
 ALTER TABLE `pedidosprodutos`
-  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `produtos`

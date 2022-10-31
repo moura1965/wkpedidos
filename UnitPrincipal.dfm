@@ -1,7 +1,7 @@
 object FormPrincipal: TFormPrincipal
   Left = 0
   Top = 0
-  Caption = 'Sistema de Pedidos WK  V 1.0'
+  Caption = 'Sistema de Pedidos WK  V 1.02'
   ClientHeight = 520
   ClientWidth = 953
   Color = clBtnFace
@@ -20,7 +20,6 @@ object FormPrincipal: TFormPrincipal
     Width = 953
     Height = 41
     Align = alBottom
-    Caption = 'pnStatus'
     TabOrder = 0
   end
   object PnMenu: TPanel
@@ -33,9 +32,11 @@ object FormPrincipal: TFormPrincipal
     Color = clCream
     ParentBackground = False
     TabOrder = 1
+    ExplicitLeft = 1
+    ExplicitTop = -5
     object BtnConfig: TBitBtn
-      Left = 112
-      Top = 11
+      Left = 775
+      Top = 10
       Width = 121
       Height = 25
       Caption = 'Configurar DB'
@@ -56,9 +57,9 @@ object FormPrincipal: TFormPrincipal
   object BtnPedidos: TBitBtn
     Left = 8
     Top = 10
-    Width = 75
+    Width = 185
     Height = 25
-    Caption = 'Pedidos'
+    Caption = '&Emitir Pedidos'
     Default = True
     TabOrder = 2
     OnClick = BtnPedidosClick

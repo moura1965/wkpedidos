@@ -169,14 +169,13 @@ object DmPrincipal: TDmPrincipal
     Top = 192
   end
   object SQLQrypedidosprodutos: TSQLQuery
-    Active = True
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
       
-        'SELECT *,qtde*precovenda as total FROM pedidosprodutos as pe,pro' +
-        'dutos as pr where pe.codigoproduto=pr.codigoproduto and numerope' +
-        'dido = 1')
+        'SELECT *,qtde*valor_unitario as total FROM pedidosprodutos as pe' +
+        ',produtos as pr where pe.codigoproduto=pr.codigoproduto and nume' +
+        'ropedido = 1')
     SQLConnection = DbPedidos
     Left = 312
     Top = 64
@@ -215,6 +214,11 @@ object DmPrincipal: TDmPrincipal
       FieldName = 'total'
       Required = True
       Precision = 27
+      Size = 2
+    end
+    object SQLQrypedidosprodutosvalor_unitario: TFMTBCDField
+      FieldName = 'valor_unitario'
+      Precision = 17
       Size = 2
     end
   end
@@ -272,6 +276,11 @@ object DmPrincipal: TDmPrincipal
       Precision = 27
       Size = 2
     end
+    object ClientDataSetpedidosprodutosvalor_unitario: TFMTBCDField
+      FieldName = 'valor_unitario'
+      Precision = 17
+      Size = 2
+    end
   end
   object SQLQryGenerica: TSQLQuery
     MaxBlobSize = -1
@@ -318,8 +327,8 @@ object DmPrincipal: TDmPrincipal
       end>
     SQLConnection = DbPedidos
     StoredProcName = 'updatepedidosprodutos'
-    Left = 240
-    Top = 312
+    Left = 176
+    Top = 376
   end
   object SQLStoProcInsererepedidosprodutos: TSQLStoredProc
     MaxBlobSize = -1
@@ -351,7 +360,7 @@ object DmPrincipal: TDmPrincipal
       end>
     SQLConnection = DbPedidos
     StoredProcName = 'spInserePedidosprodutos'
-    Left = 344
+    Left = 400
     Top = 320
   end
   object SQLQueryPedidos: TSQLQuery

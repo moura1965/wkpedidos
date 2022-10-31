@@ -109,10 +109,6 @@
             <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="UnitClasspedidosprodutos.pas"/>
-        <DCCReference Include="UnitClasspedidos.pas"/>
-        <DCCReference Include="UnitClassclientes.pas"/>
-        <DCCReference Include="UnitClassprodutos.pas"/>
         <DCCReference Include="UnitPedidos.pas">
             <Form>FormPedidos</Form>
             <FormType>dfm</FormType>

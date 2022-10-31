@@ -38,6 +38,7 @@ type
       Shift: TShiftState);
     procedure BtnInsereviatransacaooClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
+    procedure BtnGravarcomClasssseClick(Sender: TObject);
   private
     procedure BuscarPedido();
     function ApagarItem(iditem: Integer): Boolean;
@@ -70,7 +71,7 @@ begin
 
    DmPrincipal.SQLQryGenerica.CLOSE;
    DmPrincipal.SQLQryGenerica.SQL.CLEAR;
-   DmPrincipal.SQLQryGenerica.SQL.Add('SELECT sum(qtde*precovenda) as totalgeral FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
+   DmPrincipal.SQLQryGenerica.SQL.Add('SELECT sum(qtde*valor_unitario) as totalgeral FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
    DmPrincipal.SQLQryGenerica.Params.ParamByName('pnumeropedido').AsInteger:=NumeroPedido;
    DmPrincipal.SQLQryGenerica.Open;
    TotalGeral:=DmPrincipal.SQLQryGenerica.FieldByName('totalgeral').AsCurrency;
@@ -96,7 +97,7 @@ begin
    Close;
 end;
 
-procedure TFormPedidos.BtnInsereviatransacaooClick(Sender: TObject);
+procedure TFormPedidos.BtnGravarcomClasssseClick(Sender: TObject);
 var
    wcodigoproduto : integer;
    cPedidosprodutos : Tpedidosprodutos;
@@ -110,6 +111,34 @@ begin
   cPedidosprodutos.qtde:=StrToInt(EditQtde.Text);
   cPedidosprodutos.valor_unitario:=StrToCurr(EditValor.Text);
   cPedidosprodutos.GravarPedidosproduto(StrToInt(lblPedido.Text));
+
+ //  wcodigoproduto:=StrToInt(DbeditCodigoproduto.Text);
+
+   BuscarPedido();
+   DBGridpedidoprodutos.Refresh;
+   ShowMessage('Produto Adicionado ao Pedido!! Nr -> '+lblPedido.text);
+
+
+end;
+
+procedure TFormPedidos.BtnInsereviatransacaooClick(Sender: TObject);
+var
+   wcodigoproduto : integer;
+   cPedidosprodutos : Tpedidosprodutos;
+
+begin
+   DmPrincipal.SQLStoProcInsererepedidosprodutos.Params.ParamByName('pcodigoproduto').value:=StrToInt(DbeditCodigoproduto.Text);
+//   codigoproduto,qtde,valor_unitario
+  DmPrincipal.SQLStoProcInsererepedidosprodutos.Params.ParamByName('pnumeropedido').value:=StrToInt(lblPedido.Text);
+  DmPrincipal.SQLStoProcInsererepedidosprodutos.Params.ParamByName('pqtde').value:=StrToInt(EditQtde.Text);
+  DmPrincipal.SQLStoProcInsererepedidosprodutos.Params.ParamByName('pvalor_unitario').value:=StrToCurr(EditValor.Text);
+  DmPrincipal.SQLStoProcInsererepedidosprodutos.ExecProc;
+ // cPedidosprodutos:= Tpedidosprodutos.Create;
+ // cPedidosprodutos.codigoproduto:=StrToInt(DbeditCodigoproduto.Text);
+ // cPedidosprodutos.numeropedido:=StrToInt(lblPedido.Text);
+ // cPedidosprodutos.qtde:=StrToInt(EditQtde.Text);
+ // cPedidosprodutos.valor_unitario:=StrToCurr(EditValor.Text);
+ // cPedidosprodutos.GravarPedidosproduto(StrToInt(lblPedido.Text));
 
  //  wcodigoproduto:=StrToInt(DbeditCodigoproduto.Text);
 
@@ -139,7 +168,7 @@ SetLength(valores,1);
 
             DmPrincipal.SQLQrypedidosprodutos.Close;
             DmPrincipal.SQLQrypedidosprodutos.SQL.CLEAR;
-            DmPrincipal.SQLQrypedidosprodutos.SQL.Add('SELECT *,qtde*precovenda as total FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
+            DmPrincipal.SQLQrypedidosprodutos.SQL.Add('SELECT *,qtde*valor_unitario as total FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
             DmPrincipal.SQLQrypedidosprodutos.Params.ParamByName('pnumeropedido').AsInteger:=pnumeropedido;
             DmPrincipal.SQLQrypedidosprodutos.Open;
             DmPrincipal.ClientDataSetpedidosprodutos.Active:=False;
@@ -163,10 +192,12 @@ begin
    wcodigoproduto:= StrToInt(DbeditCodigoproduto.Text);
    DmPrincipal.SQLQryGenerica.CLOSE;
    DmPrincipal.SQLQryGenerica.SQL.CLEAR;
-   DmPrincipal.SQLQryGenerica.SQL.ADD('INSERT INTO pedidosprodutos(numeropedido, codigoproduto, qtde) VALUES(:pnumeropedido, :pcodigoproduto, :pqtde)');
+   DmPrincipal.SQLQryGenerica.SQL.ADD('INSERT INTO pedidosprodutos(numeropedido, codigoproduto, qtde,valor_unitario) VALUES(:pnumeropedido, :pcodigoproduto, :pqtde,:pvalor_unitario)');
    DmPrincipal.SQLQryGenerica.Params.ParamByName('pnumeropedido').AsInteger:=StrToInt(lblPedido.Text);
    DmPrincipal.SQLQryGenerica.Params.ParamByName('pcodigoproduto').AsInteger:=wcodigoproduto;
    DmPrincipal.SQLQryGenerica.Params.ParamByName('pqtde').AsInteger:=StrToInt(EditQtde.Text);
+   DmPrincipal.SQLQryGenerica.Params.ParamByName('pvalor_unitario').AsCurrency:=StrToCurr(EditValor.Text);
+
    DmPrincipal.SQLQryGenerica.ExecSQL;
    BuscarPedido();
    DBGridpedidoprodutos.Refresh;
@@ -178,6 +209,8 @@ end;
 procedure TFormPedidos.DBLCBxProdutosCloseUp(Sender: TObject);
 begin
    EditQtde.SetFocus;
+//   EditValor.Text:=DMPRINCIPAL.SQLQRyProdutos.FieldByName('precovenda').Value;
+   EditValor.Text:=DMPRINCIPAL.DSProdutos.DataSet.FieldByName('precovenda').Value;
 end;
 
 procedure TFormPedidos.DBGridpedidoprodutosKeyDown(Sender: TObject;
@@ -242,7 +275,7 @@ begin
    DmPrincipal.SQLQrypedidosprodutos.Close;
    DmPrincipal.SQLQrypedidosprodutos.SQL.CLEAR;
 //   DmPrincipal.SQLQrypedidosprodutos.SQL.Add(' Select * from pedidosprodutos where numeropedido=:pnumeropedido');
-  DmPrincipal.SQLQrypedidosprodutos.SQL.Add('SELECT *,qtde*precovenda as total FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
+  DmPrincipal.SQLQrypedidosprodutos.SQL.Add('SELECT *,qtde*valor_unitario as total FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
   DmPrincipal.SQLQrypedidosprodutos.Params.ParamByName('pnumeropedido').AsInteger:=NumeroPedido;
    DmPrincipal.SQLQrypedidosprodutos.Open;
 
@@ -252,7 +285,7 @@ begin
 
    DmPrincipal.SQLQryGenerica.CLOSE;
    DmPrincipal.SQLQryGenerica.SQL.CLEAR;
-   DmPrincipal.SQLQryGenerica.SQL.Add('SELECT sum(qtde*precovenda) as totalgeral FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
+   DmPrincipal.SQLQryGenerica.SQL.Add('SELECT sum(qtde*valor_unitario) as totalgeral FROM pedidosprodutos as pe,produtos as pr where pe.codigoproduto=pr.codigoproduto  and numeropedido=:pnumeropedido');
    DmPrincipal.SQLQryGenerica.Params.ParamByName('pnumeropedido').AsInteger:=NumeroPedido;
    DmPrincipal.SQLQryGenerica.Open;
    TotalGeral:=DmPrincipal.SQLQryGenerica.FieldByName('totalgeral').AsCurrency;

@@ -131,6 +131,43 @@ object FormConsultaPedidos: TFormConsultaPedidos
         TitleFont.Height = -11
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'iditem'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'numeropedido'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'codigoproduto'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'descricao'
+            Width = 167
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'qtde'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'valor_unitario'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'total'
+            Visible = True
+          end>
       end
     end
   end

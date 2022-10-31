@@ -95,6 +95,8 @@ type
     StringField5: TStringField;
     StringField6: TStringField;
     IntegerField6: TIntegerField;
+    SQLQrypedidosprodutosvalor_unitario: TFMTBCDField;
+    ClientDataSetpedidosprodutosvalor_unitario: TFMTBCDField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DbPedidosBeforeConnect(Sender: TObject);
   private

@@ -4,10 +4,6 @@ uses
   Vcl.Forms,
   UnitPrincipal in 'UnitPrincipal.pas' {FormPrincipal},
   UnitDM in 'UnitDM.pas' {DmPrincipal: TDataModule},
-  UnitClasspedidosprodutos in 'UnitClasspedidosprodutos.pas',
-  UnitClasspedidos in 'UnitClasspedidos.pas',
-  UnitClassclientes in 'UnitClassclientes.pas',
-  UnitClassprodutos in 'UnitClassprodutos.pas',
   UnitPedidos in 'UnitPedidos.pas' {FormPedidos},
   UnitConsultaPedidos in 'UnitConsultaPedidos.pas' {FormConsultaPedidos};
 

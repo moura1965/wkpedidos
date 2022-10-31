@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,UnitDM, Data.DB, Vcl.Grids,
   Vcl.DBGrids, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DBXMySQL, Data.SqlExpr,
-  Data.FMTBcd, Datasnap.Provider, Datasnap.DBClient,UnitClasspedidosprodutos,UnitClasspedidos,UnitClassclientes,
+  Data.FMTBcd, Datasnap.Provider, Datasnap.DBClient,UnitClasspedidosprodutos,
   Vcl.Buttons;
 
 type

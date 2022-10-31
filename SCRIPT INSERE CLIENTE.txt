@@ -1,1 +1,0 @@
-INSERT INTO `Clientes` (`codigo`, `nome`, `cidade`, `uf`) VALUES (NULL, 'CLIENTE 1', 'SAO PAULO', 'SP');

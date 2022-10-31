@@ -40,10 +40,11 @@ var pnumeropedido : integer;
 
 begin
  pnumeropedido:=strtoint(EditNUmeropedido.Text);
- if messagebox(0,'Você confirma Cancelar o Pedido ?','Pergunta',mb_yesno+mb_iconquestion)=6 then
+           if messagebox(0,'Você confirma Cancelar o Pedido ?','Pergunta',mb_yesno+mb_iconquestion)=6 then
             begin
               ApagarPedido(pnumeropedido);
             end
+
 end;
 
 Function TFormConsultaPedidos.ApagarPedido(iditem :Integer) : Boolean;
@@ -68,7 +69,8 @@ begin
    //DmPrincipal.SQLStoProcApagarItem.Params.ParamByName('piditem').Value:=iditem;
    //DmPrincipal.SQLStoProcApagarItem.ExecProc;
    showmessage('Pedido Cancelado com Sucesso !'+inttostr(iditem));
-  // BuscarPedido();
+   Close;
+   //BuscarPedido();
 
 end;
 

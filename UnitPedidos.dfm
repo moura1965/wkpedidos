@@ -138,9 +138,9 @@ object FormPedidos: TFormPedidos
     Text = '999'
   end
   object DBGridpedidoprodutos: TDBGrid
-    Left = 82
+    Left = 8
     Top = 264
-    Width = 729
+    Width = 785
     Height = 209
     DataSource = DmPrincipal.DSspedidosprodutos
     TabOrder = 7
@@ -168,29 +168,28 @@ object FormPedidos: TFormPedidos
       end
       item
         Expanded = False
-        FieldName = 'qtde'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'codigoproduto_1'
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'descricao'
-        Width = 92
-        Visible = True
-      end
-      item
-        Expanded = False
         FieldName = 'precovenda'
         Visible = True
       end
       item
         Expanded = False
+        FieldName = 'descricao'
+        Width = 134
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'valor_unitario'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'qtde'
+        Visible = True
+      end
+      item
+        Expanded = False
         FieldName = 'total'
-        Width = 76
         Visible = True
       end>
   end
@@ -247,7 +246,7 @@ object FormPedidos: TFormPedidos
     Kind = bkOK
     NumGlyphs = 2
     TabOrder = 12
-    OnClick = BtnInsereviatransacaooClick
+    OnClick = BtnGravarcomClasssseClick
   end
   object BitBtn1: TBitBtn
     Left = 472
