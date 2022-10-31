@@ -13,26 +13,16 @@ type
   TFormPrincipal = class(TForm)
     pnStatus: TPanel;
     PnMenu: TPanel;
+    BtnPedidos: TBitBtn;
     pnGeral: TPanel;
     pnGrid: TPanel;
-    pnLancamento: TPanel;
-    DBNavigator1: TDBNavigator;
-    SpeedButton1: TSpeedButton;
-    BtnClientes: TBitBtn;
-    BtnProdutos: TBitBtn;
-    BtnPedidos: TBitBtn;
     DbgItens: TDBGrid;
-    Label1: TLabel;
-    DBEdit1: TDBEdit;
-    Label2: TLabel;
-    DBEdit2: TDBEdit;
-    Label3: TLabel;
-    DBEdit3: TDBEdit;
-    Label4: TLabel;
-    DBEdit4: TDBEdit;
     DBGrid1: TDBGrid;
+    BtnConfig: TBitBtn;
+    MemoConfig: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure BtnPedidosClick(Sender: TObject);
+    procedure BtnConfigClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,6 +38,33 @@ implementation
 
 uses UnitPedidos;
 
+procedure TFormPrincipal.BtnConfigClick(Sender: TObject);
+ var Valores : Tarray<string>;
+
+begin
+ SetLength(Valores,4);
+
+
+      if  InputQuery('Configuracao do Banco de Dados ',[ 'Informe o Servidor','Nome do Banco de Dados','Usuario','Senha'], Valores) then
+        begin
+          MemoConfig.Clear;
+          MemoConfig.Lines.Add(Valores[0]);
+          MemoConfig.Lines.Add(Valores[1]);
+          MemoConfig.Lines.Add(Valores[2]);
+          MemoConfig.Lines.Add(Valores[3]);
+          MemoConfig.Lines.SaveToFile('DBConfig.txt');
+
+          // pqtde:=strtoint(Valores[0]);
+          // pvalor_unitario:=StrToFloat(Valores[1]);
+           //UpdateItem(iditem,pqtde,pvalor_unitario);
+        end;
+
+
+
+
+
+end;
+
 procedure TFormPrincipal.BtnPedidosClick(Sender: TObject);
 begin
   FormPedidos.Show;
@@ -55,6 +72,9 @@ end;
 
 procedure TFormPrincipal.FormCreate(Sender: TObject);
 begin
+
+
+
   //SQLConnection1.Connected:=True;
  // SQLQuery1.Open;
 end;

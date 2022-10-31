@@ -1,7 +1,7 @@
 object FormPrincipal: TFormPrincipal
   Left = 0
   Top = 0
-  Caption = 'Sistema de Pedidos WK  V 0.9'
+  Caption = 'Sistema de Pedidos WK  V 1.0'
   ClientHeight = 520
   ClientWidth = 953
   Color = clBtnFace
@@ -14,13 +14,6 @@ object FormPrincipal: TFormPrincipal
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object SpeedButton1: TSpeedButton
-    Left = 32
-    Top = 64
-    Width = 121
-    Height = 39
-    Visible = False
-  end
   object pnStatus: TPanel
     Left = 0
     Top = 479
@@ -40,6 +33,35 @@ object FormPrincipal: TFormPrincipal
     Color = clCream
     ParentBackground = False
     TabOrder = 1
+    object BtnConfig: TBitBtn
+      Left = 112
+      Top = 11
+      Width = 121
+      Height = 25
+      Caption = 'Configurar DB'
+      TabOrder = 0
+      OnClick = BtnConfigClick
+    end
+    object MemoConfig: TMemo
+      Left = 632
+      Top = 0
+      Width = 137
+      Height = 86
+      Lines.Strings = (
+        '')
+      TabOrder = 1
+      Visible = False
+    end
+  end
+  object BtnPedidos: TBitBtn
+    Left = 8
+    Top = 10
+    Width = 75
+    Height = 25
+    Caption = 'Pedidos'
+    Default = True
+    TabOrder = 2
+    OnClick = BtnPedidosClick
   end
   object pnGeral: TPanel
     Left = 0
@@ -47,86 +69,7 @@ object FormPrincipal: TFormPrincipal
     Width = 953
     Height = 438
     Align = alClient
-    TabOrder = 2
-    object pnLancamento: TPanel
-      Left = 1
-      Top = 1
-      Width = 951
-      Height = 183
-      Align = alClient
-      TabOrder = 1
-      object Label1: TLabel
-        Left = 280
-        Top = 24
-        Width = 31
-        Height = 13
-        Caption = 'codigo'
-        FocusControl = DBEdit1
-      end
-      object Label2: TLabel
-        Left = 280
-        Top = 64
-        Width = 26
-        Height = 13
-        Caption = 'nome'
-        FocusControl = DBEdit2
-      end
-      object Label3: TLabel
-        Left = 280
-        Top = 104
-        Width = 31
-        Height = 13
-        Caption = 'cidade'
-        FocusControl = DBEdit3
-      end
-      object Label4: TLabel
-        Left = 280
-        Top = 144
-        Width = 10
-        Height = 13
-        Caption = 'uf'
-        FocusControl = DBEdit4
-      end
-      object DBNavigator1: TDBNavigator
-        Left = 424
-        Top = 152
-        Width = 240
-        Height = 25
-        TabOrder = 0
-      end
-      object DBEdit1: TDBEdit
-        Left = 280
-        Top = 40
-        Width = 134
-        Height = 21
-        DataField = 'codigo'
-        TabOrder = 1
-      end
-      object DBEdit2: TDBEdit
-        Left = 280
-        Top = 80
-        Width = 654
-        Height = 21
-        DataField = 'nome'
-        TabOrder = 2
-      end
-      object DBEdit3: TDBEdit
-        Left = 280
-        Top = 120
-        Width = 654
-        Height = 21
-        DataField = 'cidade'
-        TabOrder = 3
-      end
-      object DBEdit4: TDBEdit
-        Left = 280
-        Top = 160
-        Width = 30
-        Height = 21
-        DataField = 'uf'
-        TabOrder = 4
-      end
-    end
+    TabOrder = 3
     object pnGrid: TPanel
       Left = 1
       Top = 184
@@ -135,9 +78,9 @@ object FormPrincipal: TFormPrincipal
       Align = alBottom
       TabOrder = 0
       object DbgItens: TDBGrid
-        Left = 327
+        Left = 0
         Top = 1
-        Width = 623
+        Width = 950
         Height = 251
         Align = alRight
         DataSource = DmPrincipal.DSProdutos
@@ -148,45 +91,20 @@ object FormPrincipal: TFormPrincipal
         TitleFont.Name = 'Tahoma'
         TitleFont.Style = []
       end
-      object DBGrid1: TDBGrid
-        Left = 1
-        Top = 1
-        Width = 326
-        Height = 251
-        Align = alClient
-        DataSource = DmPrincipal.DataSource2
-        TabOrder = 1
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
-      end
     end
-  end
-  object BtnClientes: TBitBtn
-    Left = 32
-    Top = 109
-    Width = 75
-    Height = 25
-    Caption = 'Clientes'
-    TabOrder = 3
-  end
-  object BtnProdutos: TBitBtn
-    Left = 32
-    Top = 140
-    Width = 75
-    Height = 25
-    Caption = 'Produtos'
-    TabOrder = 4
-  end
-  object BtnPedidos: TBitBtn
-    Left = 32
-    Top = 171
-    Width = 75
-    Height = 25
-    Caption = 'Pedidos'
-    TabOrder = 5
-    OnClick = BtnPedidosClick
+    object DBGrid1: TDBGrid
+      Left = 1
+      Top = 1
+      Width = 768
+      Height = 183
+      Align = alLeft
+      DataSource = DmPrincipal.DataSource2
+      TabOrder = 1
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'Tahoma'
+      TitleFont.Style = []
+    end
   end
 end

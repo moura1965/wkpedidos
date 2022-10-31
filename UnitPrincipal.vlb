@@ -1,14 +1,8 @@
 ﻿[DmPrincipal.SQLQryClientes]
 Coordinates=153,10,156,123
 
-[pnLancamento]
-Coordinates=299,143,87,51
-
 [DmPrincipal.SQLQRyProdutos]
 Coordinates=319,10,164,105
-
-[pnGeral]
-Coordinates=158,204,53,51
 
 [PnMenu]
 Coordinates=91,143,54,51
@@ -16,32 +10,14 @@ Coordinates=91,143,54,51
 [pnStatus]
 Coordinates=493,10,58,51
 
-[pnGrid]
-Coordinates=241,143,48,51
-
-[DBNavigator1]
-Coordinates=10,204,82,51
-
 [DmPrincipal.DSProdutos]
 Coordinates=67,1,136,33
-
-[BtnClientes]
-Coordinates=396,143,71,51
 
 [BtnPedidos]
 Coordinates=10,143,71,51
 
-[BtnProdutos]
-Coordinates=155,143,76,51
-
-[SpeedButton1]
-Coordinates=345,204,84,33
-
-[DbgItens]
-Coordinates=277,204,58,33
-
 []
-Coordinates=503,204,74,33
+Coordinates=158,204,53,51
 
 [DmPrincipal.]
 Coordinates=541,1,130,33

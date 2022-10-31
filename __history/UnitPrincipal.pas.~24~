@@ -1,0 +1,79 @@
+unit UnitPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,UnitDM, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DBXMySQL, Data.SqlExpr,
+  Data.FMTBcd, Datasnap.Provider, Datasnap.DBClient,UnitClasspedidosprodutos,UnitClasspedidos,UnitClassclientes,
+  Vcl.Buttons;
+
+type
+  TFormPrincipal = class(TForm)
+    pnStatus: TPanel;
+    PnMenu: TPanel;
+    BtnPedidos: TBitBtn;
+    pnGeral: TPanel;
+    pnGrid: TPanel;
+    DbgItens: TDBGrid;
+    DBGrid1: TDBGrid;
+    BtnConfig: TBitBtn;
+    MemoConfig: TMemo;
+    procedure FormCreate(Sender: TObject);
+    procedure BtnPedidosClick(Sender: TObject);
+    procedure BtnConfigClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPrincipal: TFormPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+uses UnitPedidos;
+
+procedure TFormPrincipal.BtnConfigClick(Sender: TObject);
+ var Valores : Tarray<string>;
+
+begin
+ SetLength(Valores,4);
+
+
+      if  InputQuery('Configuracao do Banco de Dados ',[ 'Informe o Servidor','Nome do Banco de Dados','Usuario','Senha'], Valores) then
+        begin
+          MemoConfig.Clear;
+          MemoConfig.Lines.Add(Valores[0]);
+          MemoConfig.Lines.Add(Valores[1]);
+          MemoConfig.Lines.Add(Valores[2]);
+          MemoConfig.Lines.Add(Valores[3]);
+          MemoConfig.Lines.SaveToFile('DBConfig.txt');
+
+          // pqtde:=strtoint(Valores[0]);
+          // pvalor_unitario:=StrToFloat(Valores[1]);
+           //UpdateItem(iditem,pqtde,pvalor_unitario);
+        end;
+
+
+
+
+
+end;
+
+procedure TFormPrincipal.BtnPedidosClick(Sender: TObject);
+begin
+  FormPedidos.Show;
+end;
+
+procedure TFormPrincipal.FormCreate(Sender: TObject);
+begin
+  //SQLConnection1.Connected:=True;
+ // SQLQuery1.Open;
+end;
+
+end.

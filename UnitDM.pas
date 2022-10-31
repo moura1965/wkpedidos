@@ -52,7 +52,51 @@ type
     ClientDataSetpedidosprodutosprecovenda: TFMTBCDField;
     SQLQrypedidosprodutostotal: TFMTBCDField;
     ClientDataSetpedidosprodutostotal: TFMTBCDField;
+    SQLStoProcApagarItem: TSQLStoredProc;
+    SQLStoProcUpdateItem: TSQLStoredProc;
+    SQLStoProcInsererepedidosprodutos: TSQLStoredProc;
+    SQLQueryPedidos: TSQLQuery;
+    DataSourcePedidos: TDataSource;
+    DataSetProviderPedidos: TDataSetProvider;
+    ClientDataSetPedidos: TClientDataSet;
+    SQLQueryPedidosnumeropedido: TIntegerField;
+    SQLQueryPedidosdataemissao: TSQLTimeStampField;
+    SQLQueryPedidoscodigocliente: TIntegerField;
+    SQLQueryPedidosvalortotal: TFMTBCDField;
+    SQLQueryPedidoscodigo: TIntegerField;
+    SQLQueryPedidosnome: TStringField;
+    SQLQueryPedidoscidade: TStringField;
+    SQLQueryPedidosuf: TStringField;
+    ClientDataSetPedidosnumeropedido: TIntegerField;
+    ClientDataSetPedidosdataemissao: TSQLTimeStampField;
+    ClientDataSetPedidosvalortotal: TFMTBCDField;
+    ClientDataSetPedidoscodigo: TIntegerField;
+    ClientDataSetPedidosnome: TStringField;
+    ClientDataSetPedidoscidade: TStringField;
+    ClientDataSetPedidosuf: TStringField;
+    ClientDataSetPedidoscodigocliente: TIntegerField;
+    SQLQuery1: TSQLQuery;
+    IntegerField1: TIntegerField;
+    SQLTimeStampField1: TSQLTimeStampField;
+    FMTBCDField1: TFMTBCDField;
+    IntegerField2: TIntegerField;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    IntegerField3: TIntegerField;
+    DataSource1: TDataSource;
+    DataSetProvider1: TDataSetProvider;
+    ClientDataSet1: TClientDataSet;
+    IntegerField4: TIntegerField;
+    SQLTimeStampField2: TSQLTimeStampField;
+    FMTBCDField2: TFMTBCDField;
+    IntegerField5: TIntegerField;
+    StringField4: TStringField;
+    StringField5: TStringField;
+    StringField6: TStringField;
+    IntegerField6: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
+    procedure DbPedidosBeforeConnect(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,11 +110,13 @@ implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
+uses UnitPrincipal;
+
 {$R *.dfm}
 
 procedure TDmPrincipal.DataModuleCreate(Sender: TObject);
 begin
-   DbPedidos.Connected:=True;
+
    //SQLQryClientes.Sql.Clear;
    //SQLQryClientes.Sql.Add(' Select * from clientes');
    //SQLQryClientes.Open;
@@ -81,6 +127,22 @@ begin
    SQLQryProdutos.Sql.Add(' Select * from produtos order by descricao asc');
    SQLQryProdutos.Open;
    ClientDataSetProdutos.Active:=True;
+
+end;
+
+procedure TDmPrincipal.DbPedidosBeforeConnect(Sender: TObject);
+begin
+  if fileexists('DBConfig.txt') then
+  begin
+     FormPrincipal.MemoConfig.Lines.LoadFromFile('DBConfig.txt');
+     DbPedidos.Params.Values['HostName']:=FormPrincipal.MemoConfig.Lines[0];
+     DbPedidos.Params.Values['DataBase']:=FormPrincipal.MemoConfig.Lines[1];
+     DbPedidos.Params.Values['User_Name']:=FormPrincipal.MemoConfig.Lines[2];
+     if FormPrincipal.MemoConfig.Lines[3] <> '.' then
+        DbPedidos.Params.Values['Password']:=FormPrincipal.MemoConfig.Lines[3];
+
+  end;
+
 
 end;
 

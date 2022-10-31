@@ -8,7 +8,8 @@ uses
   UnitClasspedidos in 'UnitClasspedidos.pas',
   UnitClassclientes in 'UnitClassclientes.pas',
   UnitClassprodutos in 'UnitClassprodutos.pas',
-  UnitPedidos in 'UnitPedidos.pas' {FormPedidos};
+  UnitPedidos in 'UnitPedidos.pas' {FormPedidos},
+  UnitConsultaPedidos in 'UnitConsultaPedidos.pas' {FormConsultaPedidos};
 
 {$R *.res}
 
@@ -18,5 +19,6 @@ begin
   Application.CreateForm(TFormPrincipal, FormPrincipal);
   Application.CreateForm(TDmPrincipal, DmPrincipal);
   Application.CreateForm(TFormPedidos, FormPedidos);
+  Application.CreateForm(TFormConsultaPedidos, FormConsultaPedidos);
   Application.Run;
 end.

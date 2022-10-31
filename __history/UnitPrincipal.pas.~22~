@@ -1,0 +1,49 @@
+unit UnitPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls,UnitDM, Data.DB, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls, Data.DBXMySQL, Data.SqlExpr,
+  Data.FMTBcd, Datasnap.Provider, Datasnap.DBClient,UnitClasspedidosprodutos,UnitClasspedidos,UnitClassclientes,
+  Vcl.Buttons;
+
+type
+  TFormPrincipal = class(TForm)
+    pnStatus: TPanel;
+    PnMenu: TPanel;
+    BtnPedidos: TBitBtn;
+    pnGeral: TPanel;
+    pnGrid: TPanel;
+    DbgItens: TDBGrid;
+    DBGrid1: TDBGrid;
+    procedure FormCreate(Sender: TObject);
+    procedure BtnPedidosClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormPrincipal: TFormPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+uses UnitPedidos;
+
+procedure TFormPrincipal.BtnPedidosClick(Sender: TObject);
+begin
+  FormPedidos.Show;
+end;
+
+procedure TFormPrincipal.FormCreate(Sender: TObject);
+begin
+  //SQLConnection1.Connected:=True;
+ // SQLQuery1.Open;
+end;
+
+end.

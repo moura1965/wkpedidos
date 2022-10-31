@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 30-Out-2022 às 00:33
+-- Generation Time: 31-Out-2022 às 00:59
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 5.6.40
 
@@ -21,8 +21,86 @@ SET time_zone = "+00:00";
 --
 -- Database: `wkpedidos`
 --
-CREATE DATABASE IF NOT EXISTS `wkpedidos` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `wkpedidos`;
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ApagarItem` (IN `piditem` INTEGER)  BEGIN
+	Delete from pedidosprodutos 
+ 	wHERE iditem = piditem;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInserePedidosprodutos` (IN `pcodigoproduto` INTEGER, `pnumeropedido` INTEGER, `pqtde` INTEGER, `pvalor_unitario` DECIMAL(15,2))  BEGIN
+/* Abaixo fica a declaração da variavel excessao que sera um
+  inteiro pequeno e é inicializada com 0;
+  A segunda linha declare indica que quando ocorrer alguma excessão em
+  algum comando, essa variável excessao será preenchida com o valor 1, tornando
+  possivel verificar se houve algum problema.
+*/
+  DECLARE excessao SMALLINT DEFAULT 0;
+  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET excessao = 1;
+
+/* Aqui verificamos se os parâmetros não estão vazios, para não inserirmos
+  campos em branco no banco.
+  Caso ambos estejam preenchidos, inicio a transaction com o comando
+  START TRANSACTION.
+*/
+ if (pcodigoproduto <> "" and pnumeropedido <> "" and pqtde <> "" and pvalor_unitario <> "" ) then
+
+    START TRANSACTION;
+
+    /* aqui inserimos o nome passado por parâmetro na tabela cliente */
+    
+    INSERT INTO pedidosprodutos(numeropedido, codigoproduto, qtde,valor_unitario) VALUES(pnumeropedido, pcodigoproduto, pqtde, pvalor_unitario);
+
+    /* Caso a variavel contenha 1, ou seja, caso tenha ocorrido algum erro
+      Retornamos uma mensagem de erro, atravez da variavel Msg, e logo em
+      seguida executamos o comando ROLLBACK.
+      Esse comando que é o responsavel por desfazer toda e qualquer
+      alteração que tenhamos feito no banco.
+    */
+    IF excessao = 1
+    THEN
+      SELECT 'Erro ao inserir na tabela pedidosprodutos' AS Msg;
+      ROLLBACK;
+    ELSE
+      /* Caso excessao ainda seja 0, ele continua aqui, onde executamos
+      o proximo comando cuja função é retornar o ultimo ID(chave primaria)
+      que foi inserido na tabela cliente e o guarda na variavel @idCliente
+      */
+      SELECT DISTINCT LAST_INSERT_ID() INTO @iditem FROM pedidosprodutos;
+      /* De novo, caso tenha ocorrido erro, imprime mensagem e execura
+      um ROLLBACK */
+      IF excessao = 1
+      THEN
+        SELECT 'Erro ao selecionar o ultim ID inserido' AS Msg;
+        ROLLBACK;
+      ELSE
+        /* Aqui iremos inserir os dados na tabela endereco, utilizando a
+        variavel com o id do ultimo cliente inserido, que pegamos no
+        comando SELECT acima, e tambem o parametro contendo a rua.
+        */
+       COMMIT;
+        
+      END IF;
+    END IF;
+  ELSE
+    /* Como estão faltando parametros, estão vazios, imprime-se a mensagem
+     a seguir.*/
+    SELECT 'Parametros necessarios' AS Msg;
+  END IF;
+
+/* aqui finalizamos a procedure*/
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `updatepedidosprodutos` (IN `pqtde` INTEGER, `pvalor_unitario` DECIMAL(15,2), `piditem` INTEGER)  BEGIN
+	update pedidosprodutos set qtde=pqtde,valor_unitario=pvalor_unitario
+ 	
+	WHERE iditem = piditem;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -30,7 +108,6 @@ USE `wkpedidos`;
 -- Estrutura da tabela `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE `clientes` (
   `codigo` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
@@ -74,7 +151,6 @@ INSERT INTO `clientes` (`codigo`, `nome`, `cidade`, `uf`) VALUES
 -- Estrutura da tabela `pedidos`
 --
 
-DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE `pedidos` (
   `numeropedido` int(11) NOT NULL,
   `dataemissao` datetime NOT NULL,
@@ -90,8 +166,14 @@ INSERT INTO `pedidos` (`numeropedido`, `dataemissao`, `codigocliente`, `valortot
 (1, '2022-10-28 00:00:00', 1, '1.00'),
 (2, '0000-00-00 00:00:00', 1, '85.00'),
 (3, '0000-00-00 00:00:00', 3, '30.00'),
-(4, '2022-10-29 19:23:51', 1, '16.00'),
-(5, '2022-10-29 19:27:11', 3, '100.00');
+(6, '2022-10-30 17:33:51', 4, '2310.00'),
+(7, '2022-10-30 17:35:40', 4, '5200.00'),
+(8, '2022-10-30 18:07:54', 1, '25.00'),
+(9, '2022-10-30 18:09:22', 2, '20.00'),
+(10, '2022-10-30 18:11:47', 4, '4.00'),
+(11, '2022-10-30 19:27:16', 24, '0.00'),
+(12, '2022-10-30 19:28:31', 2, '48.00'),
+(13, '2022-10-30 19:45:15', 5, '24.00');
 
 -- --------------------------------------------------------
 
@@ -99,47 +181,71 @@ INSERT INTO `pedidos` (`numeropedido`, `dataemissao`, `codigocliente`, `valortot
 -- Estrutura da tabela `pedidosprodutos`
 --
 
-DROP TABLE IF EXISTS `pedidosprodutos`;
 CREATE TABLE `pedidosprodutos` (
   `iditem` int(11) NOT NULL,
   `numeropedido` int(11) NOT NULL,
   `codigoproduto` int(11) NOT NULL,
-  `qtde` int(11) NOT NULL
+  `qtde` int(11) NOT NULL,
+  `valor_unitario` decimal(15,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `pedidosprodutos`
 --
 
-INSERT INTO `pedidosprodutos` (`iditem`, `numeropedido`, `codigoproduto`, `qtde`) VALUES
-(11, 1, 1, 57),
-(12, 1, 1, 67),
-(13, 1, 1, 87),
-(14, 1, 1, 58),
-(15, 1, 1, 45),
-(16, 1, 1, 5),
-(17, 1, 1, 5),
-(18, 1, 1, 7),
-(19, 1, 1, 8),
-(20, 1, 4, 55),
-(21, 1, 6, 44),
-(22, 1, 4, 55),
-(23, 1, 4, 55),
-(24, 1, 4, 55),
-(25, 1, 7, 7),
-(26, 1, 6, 8),
-(27, 1, 3, 7),
-(28, 1, 12, 9),
-(29, 2, 6, 5),
-(30, 2, 4, 5),
-(31, 2, 7, 5),
-(32, 3, 3, 5),
-(33, 3, 3, 5),
-(34, 4, 1, 1),
-(35, 4, 3, 5),
-(36, 5, 5, 5),
-(37, 5, 7, 5),
-(38, 5, 8, 5);
+INSERT INTO `pedidosprodutos` (`iditem`, `numeropedido`, `codigoproduto`, `qtde`, `valor_unitario`) VALUES
+(11, 1, 1, 57, NULL),
+(12, 1, 1, 67, NULL),
+(13, 1, 1, 87, NULL),
+(14, 1, 1, 58, NULL),
+(15, 1, 1, 45, NULL),
+(16, 1, 1, 5, NULL),
+(17, 1, 1, 5, NULL),
+(18, 1, 1, 7, NULL),
+(19, 1, 1, 8, NULL),
+(20, 1, 4, 55, NULL),
+(21, 1, 6, 44, NULL),
+(22, 1, 4, 55, NULL),
+(23, 1, 4, 55, NULL),
+(24, 1, 4, 55, NULL),
+(25, 1, 7, 7, NULL),
+(26, 1, 6, 8, NULL),
+(27, 1, 3, 7, NULL),
+(28, 1, 12, 9, NULL),
+(29, 2, 6, 5, NULL),
+(30, 2, 4, 5, NULL),
+(31, 2, 7, 5, NULL),
+(32, 3, 3, 5, NULL),
+(33, 3, 3, 5, NULL),
+(36, 5, 5, 5, NULL),
+(37, 5, 7, 5, NULL),
+(38, 5, 8, 5, NULL),
+(40, 6, 2, 300, '45.00'),
+(42, 6, 3, 5, NULL),
+(45, 6, 7, 5, NULL),
+(46, 6, 5, 1, '25.00'),
+(47, 6, 5, 1, '25.00'),
+(48, 6, 5, 1, '25.00'),
+(49, 6, 5, 19, '25.00'),
+(50, 6, 31, 25, '25.00'),
+(51, 6, 31, 25, '25.00'),
+(52, 7, 31, 25, '25.00'),
+(53, 7, 31, 25, '25.00'),
+(54, 7, 22, 25, '25.00'),
+(55, 7, 31, 25, '25.00'),
+(56, 7, 31, 25, NULL),
+(57, 7, 31, 25, '25.00'),
+(58, 7, 31, 25, '25.00'),
+(59, 8, 5, 5, '5.00'),
+(60, 9, 4, 5, NULL),
+(61, 10, 4, 1, NULL),
+(62, 12, 3, 4, NULL),
+(63, 12, 3, 4, NULL),
+(64, 12, 3, 4, NULL),
+(65, 12, 3, 4, '5.00'),
+(66, 13, 4, 2, NULL),
+(67, 13, 4, 2, '5.00'),
+(68, 13, 4, 2, '5.00');
 
 -- --------------------------------------------------------
 
@@ -147,7 +253,6 @@ INSERT INTO `pedidosprodutos` (`iditem`, `numeropedido`, `codigoproduto`, `qtde`
 -- Estrutura da tabela `produtos`
 --
 
-DROP TABLE IF EXISTS `produtos`;
 CREATE TABLE `produtos` (
   `codigoproduto` int(11) NOT NULL,
   `descricao` varchar(50) NOT NULL,
@@ -238,13 +343,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT for table `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `numeropedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `numeropedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `pedidosprodutos`
 --
 ALTER TABLE `pedidosprodutos`
-  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `iditem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `produtos`

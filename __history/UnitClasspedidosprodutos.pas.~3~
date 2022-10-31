@@ -1,0 +1,59 @@
+unit UnitClasspedidosprodutos;
+interface
+uses REST.Json.Types;
+
+type Tpedidosprodutos = class
+  private
+    [JSONNameAttribute('iditem')]
+    Fiditem: integer;
+    [JSONNameAttribute('numeropedido')]
+    Fnumeropedido: integer;
+    [JSONNameAttribute('codigoproduto')]
+    Fcodigoproduto: integer;
+    [JSONNameAttribute('qtde')]
+    Fqtde: integer;
+    procedure Setiditem(const Value: integer);
+    procedure Setnumeropedido(const Value: integer);
+    procedure Setcodigoproduto(const Value: integer);
+    procedure Setqtde(const Value: integer);
+  public
+    property iditem: integer read Fiditem write Setiditem;
+    property numeropedido: integer read Fnumeropedido write Setnumeropedido;
+    property codigoproduto: integer read Fcodigoproduto write Setcodigoproduto;
+    property qtde: integer read Fqtde write Setqtde;
+end;
+
+implementation
+
+{ Tpedidosprodutos }
+
+
+
+
+constructor Tpedidosprodutos.Create;
+
+begin
+
+// metodo contrutor
+
+end;
+
+destructor Tpedidosprodutos.Destroy;
+
+begin
+
+// metodo destrutor
+
+inherited;
+
+end;
+
+function Tpedidosprodutos.saberIdade(qtdAnos: Integer): Integer;
+
+begin
+
+Result := Fidade + qtdAnos;
+
+end;
+
+end.
